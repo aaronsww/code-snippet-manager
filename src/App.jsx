@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "./App.css";
 import Navigation from "../components/Navigation";
-import Files from "../components/Files";
+import Snippets from "../components/Snippets";
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
@@ -14,7 +14,7 @@ function App() {
         </div>
         <div className="col">
           <Routes>
-            <Route path="/c" element={<Files />} />
+            <Route path="/c" element={<Snippets />} />
           </Routes>
         </div>
       </div>
