@@ -22,20 +22,27 @@ app.get("/api/languages", async (req, res) => {
   return res.json(languages);
 });
 
-app.post("/api/languages/add", async (req, res) => {
-  const snippetData = req.body.snippet.map((snippet) => ({
-    title: snippet.title,
-    code: snippet.code,
-  }));
+app.post("/api/languages/:id/add-snippet", async (req, res) => {
+  const { id } = req.params;
+  const title = req.body.title;
+  const code = req.body.code;
 
-  const language = new Language({
-    name: req.body.name,
-    snippet: snippetData,
-  });
+  try {
+    const language = await Language.findOneAndUpdate(
+      { _id: id },
+      { $push: { snippet: { title, code } } },
+      { new: true }
+    );
 
-  const result = await language.save();
+    if (!language) {
+      return res.status(404).json({ message: "Language not found" });
+    }
 
-  return res.json(result);
+    return res.json(language);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: "Internal server error" });
+  }
 });
 
 app.listen(5000, () => console.log("Listening on port 5000"));
