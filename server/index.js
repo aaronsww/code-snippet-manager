@@ -17,7 +17,10 @@ const languageSchema = new mongoose.Schema({
 
 const Language = mongoose.model("Language", languageSchema);
 
-
+app.get("/api/languages", async (req, res) => {
+  const languages = await Language.find();
+  return res.json(languages);
+});
 
 app.post("/api/languages/add", async (req, res) => {
   const snippetData = req.body.snippet.map((snippet) => ({
