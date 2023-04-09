@@ -1,15 +1,25 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import {useState, useEffect} from 'react'
 import "../src/App.css";
+import axios from 'axios';
 
 function Navigation() {
+  const [languages, setLanguages] = useState(['hmmm']);
+  
+  useEffect(() => {
+    axios
+      .get("http://localhost:5000/api/languages")
+      .then((res) => {
+        console.log(res.data.map(data => data.name));
+        setLanguages(prevLanguages => [...prevLanguages, ...res.data.map(data => data.name)]);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  },[]);
+
   return (
     <div>
-        <h3>Languages</h3>
-        <div><Link to="/c">C</Link></div>
-        <div><Link to="/c++">C++</Link></div>
-        <div><Link to="/javascipt">JavaScript</Link></div>
-        <div><Link to="/python">yPthon</Link></div>
+        {languages.map(lang => <div>{lang}</div>)}
     </div>
   )
 }
