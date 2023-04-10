@@ -12,8 +12,10 @@ function Snippets() {
       .then((res) => {
         const arr = res.data.map((data) =>
           data.snippet.map((data) => data.title)
+
         );
-        setSnippets(arr);
+        arr.map(data => setSnippets(prevLanguages => [...prevLanguages, ...data]));
+        // setSnippets(arr);
         console.log(snippets);
       })
       .catch((err) => {
