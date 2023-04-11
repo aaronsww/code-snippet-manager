@@ -4,41 +4,57 @@ import axios from "axios";
 import Content from "./Content";
 
 function Snippets() {
-  // const [snippets, setSnippets] = useState([]);
-  const [snippets, setSnippets] = useState([{ name: "", content: "" }]);
+  const [id, setId] = useState('');
+  const [snippets, setSnippets] = useState([{ name: "", content: "", id: "" }]);
   const [currentSnippet, setCurrentSnippet] = useState({
     name: "",
     content: "",
   });
-  const [newSnippet, setNewSnippet] = useState("");
+  const [newSnippet, setNewSnippet] = useState({
+    name: "",
+    content: "",
+  });
 
   useEffect(() => {
     axios
       .get("http://localhost:5000/api/languages")
       .then((res) => {
+        res.data.map((data) => setId(data._id));
         console.log(res.data);
         res.data.map((data) =>
           data.snippet.map((data) =>
             setSnippets((prevState) => [
               ...prevState,
-              { name: data.title, content: data.code },
+              { name: data.title, content: data.code, id: data._id },
             ])
           )
         );
-        console.log(snippets);
       })
       .catch((err) => {
         console.log(err);
       });
   }, []);
 
-  const handleAdd = () => {
-    setSnippets([...snippets, newSnippet]);
-    setNewSnippet("");
-  };
+  console.log(id);
 
   const handleClick = (name, content) => {
     setCurrentSnippet({ name, content });
+  };
+
+  const handleAdd = async (title, code) => {
+    console.log("this is id", id)
+    try {
+      const response = await axios.post(
+        `http://localhost:5000/api/languages/${id}/add-snippet`,
+        {
+          title,
+          code,
+        }
+      );
+      console.log(response.headers);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
@@ -52,10 +68,16 @@ function Snippets() {
           ))}
           <input
             type="text"
-            value={newSnippet}
-            onChange={(e) => setNewSnippet(e.target.value)}
+            value={newSnippet.name}
+            onChange={(e) =>
+              setNewSnippet({ ...newSnippet, name: e.target.value })
+            }
           />
-          <button onClick={handleAdd}>+ New File</button>
+          <button
+            onClick={() => handleAdd(newSnippet.name, newSnippet.content)}
+          >
+            + New File
+          </button>
         </div>
         <Content code={currentSnippet.content} />
       </div>
