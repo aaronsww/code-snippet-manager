@@ -9,6 +9,7 @@ function Snippets() {
   const [currentSnippet, setCurrentSnippet] = useState({
     name: "",
     content: "",
+    id: "",
   });
   const [newSnippet, setNewSnippet] = useState({
     name: "",
@@ -35,10 +36,10 @@ function Snippets() {
       });
   }, []);
 
-  console.log(id);
+  // console.log(id);
 
-  const handleClick = (name, content) => {
-    setCurrentSnippet({ name, content });
+  const handleClick = (name, content, id) => {
+    setCurrentSnippet({ name, content, id });
   };
 
   const handleAdd = async (title, code) => {
@@ -62,7 +63,7 @@ function Snippets() {
       <div className="container">
         <div>
           {snippets.map((snippet) => (
-            <div onClick={() => handleClick(snippet.name, snippet.content)}>
+            <div onClick={() => handleClick(snippet.name, snippet.content, snippet.id)}>
               {snippet.name}
             </div>
           ))}
@@ -79,7 +80,7 @@ function Snippets() {
             + New File
           </button>
         </div>
-        <Content code={currentSnippet.content} />
+        <Content mainId ={id} id={currentSnippet.id} code={currentSnippet.content} />
       </div>
     </div>
   );
