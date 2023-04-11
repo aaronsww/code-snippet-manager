@@ -4,7 +4,7 @@ const app = express();
 
 app.use(express.json());
 
-app.use(cors())
+app.use(cors());
 
 const mongoose = require("mongoose");
 
@@ -47,5 +47,32 @@ app.post("/api/languages/:id/add-snippet", async (req, res) => {
     return res.status(500).json({ message: "Internal server error" });
   }
 });
+
+app.patch(
+  "/api/languages/:languageId/snippets/:snippetId/update-snippet",
+  async (req, res) => {
+    const { languageId, snippetId } = req.params;
+    const { code } = req.body;
+
+    try {
+      const language = await Language.findOneAndUpdate(
+        { _id: languageId, "snippet._id": snippetId },
+        { $set: { "snippet.$.code": code } },
+        { new: true }
+      );
+
+      if (!language) {
+        return res
+          .status(404)
+          .json({ message: "Language or snippet not found" });
+      }
+
+      return res.json(language);
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({ message: "Internal server error" });
+    }
+  }
+);
 
 app.listen(5000, () => console.log("Listening on port 5000"));
