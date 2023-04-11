@@ -3,19 +3,25 @@ import "../src/App.css";
 import axios from "axios";
 
 function Snippets() {
-  const [snippets, setSnippets] = useState([]);
+  // const [snippets, setSnippets] = useState([]);
+  const [snippets, setSnippets] = useState([{name: '', content:''}]);
   const [newSnippet, setNewSnippet] = useState("");
 
   useEffect(() => {
     axios
       .get("http://localhost:5000/api/languages")
       .then((res) => {
-        const arr = res.data.map((data) =>
-          data.snippet.map((data) => data.title)
+        console.log(res.data)
+        res.data.map((data) => data.snippet.map(data => setSnippets(prevState => [...prevState, { name: data.title, content: data.code }]))); 
 
-        );
-        arr.map(data => setSnippets(prevLanguages => [...prevLanguages, ...data]));
-        // setSnippets(arr);
+        // setSnippets(prevState => [...prevState, ...newSnippets]);
+        // console.log(res.data)
+      //   const arr = res.data.map((data) =>
+      //     data.snippet.map((data) => data.title)
+      //   );
+      //   arr.map((data) =>
+      //     setSnippets((prevLanguages) => [...prevLanguages, ...data])
+      //   );
         console.log(snippets);
       })
       .catch((err) => {
@@ -31,7 +37,7 @@ function Snippets() {
   return (
     <div>
       {snippets.map((snippet) => (
-        <div>{snippet}</div>
+        <div>{snippet.name}</div>
       ))}
       <div>
         <input
