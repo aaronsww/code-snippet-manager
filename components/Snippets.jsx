@@ -3,9 +3,10 @@ import "../src/App.css";
 import axios from "axios";
 import Content from "./Content";
 
-function Snippets() {
-  const [id, setId] = useState('');
-  const [snippets, setSnippets] = useState([{ name: "", content: "", id: "" }]);
+function Snippets({ id, snippets }) {
+  // const [id, setId] = useState("");
+  // const [snippets, setSnippets] = useState([{ name: "", content: "", id: "" }]);
+  // const [snippets, setSnippets] = useState([{ name: "", content: "", id: "" }]);
   const [currentSnippet, setCurrentSnippet] = useState({
     name: "",
     content: "",
@@ -16,26 +17,30 @@ function Snippets() {
     content: "",
   });
 
-  useEffect(() => {
-    axios
-      .get("http://localhost:5000/api/languages")
-      .then((res) => {
-        res.data.map((data) => setId(data._id));
-        console.log(res.data);
-        res.data.map((data) =>
-          data.snippet.map((data) =>
-            setSnippets((prevState) => [
-              ...prevState,
-              { name: data.title, content: data.code, id: data._id },
-            ])
-          )
-        );
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
+  // useEffect(()=>{
+  //   setSnippets(mySnippet)
+  // },[])
 
+  console.log(snippets.length, "my snippets:", snippets, "and", id);
+  // useEffect(() => {
+  //   axios
+  //     .get("http://localhost:5000/api/languages")
+  //     .then((res) => {
+  //       res.data.map((data) => setId(data._id));
+  //       console.log(res.data);
+  //       res.data.map((data) =>
+  //         data.snippet.map((data) =>
+  //           setSnippets((prevState) => [
+  //             ...prevState,
+  //             { name: data.title, content: data.code, id: data._id },
+  //           ])
+  //         )
+  //       );
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // }, []);
   // console.log(id);
 
   const handleClick = (name, content, id) => {
@@ -43,28 +48,37 @@ function Snippets() {
   };
 
   const handleAdd = async (title, code) => {
-    console.log("this is id", id)
-    try {
-      const response = await axios.post(
-        `http://localhost:5000/api/languages/${id}/add-snippet`,
-        {
-          title,
-          code,
-        }
-      );
-      console.log(response.headers);
-    } catch (error) {
-      console.error(error);
+    if (newSnippet.name) {
+      console.log("this is id", id);
+      try {
+        const response = await axios.post(
+          `http://localhost:5000/api/languages/${id}/add-snippet`,
+          {
+            title,
+            code,
+          }
+        );
+        console.log(response.headers);
+      } catch (error) {
+        console.error(error);
+      }
+    } else {
+      alert("add name");
     }
   };
 
   return (
-    <div>
+    <div className="snippets">
       <div className="container">
         <div>
           {snippets.map((snippet) => (
-            <div onClick={() => handleClick(snippet.name, snippet.content, snippet.id)}>
-              {snippet.name}
+            <div
+              key={snippet._id}
+              onClick={() =>
+                handleClick(snippet.title, snippet.code, snippet._id)
+              }
+            >
+              {snippet.title}
             </div>
           ))}
           <input
@@ -80,7 +94,11 @@ function Snippets() {
             + New File
           </button>
         </div>
-        <Content mainId ={id} id={currentSnippet.id} code={currentSnippet.content} />
+        <Content
+          mainId={id}
+          id={currentSnippet.id}
+          code={currentSnippet.content}
+        />
       </div>
     </div>
   );
