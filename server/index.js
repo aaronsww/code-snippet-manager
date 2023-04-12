@@ -25,6 +25,22 @@ app.get("/api/languages", async (req, res) => {
   return res.json(languages);
 });
 
+app.post("/api/languages/add", async (req, res) => {
+  console.log("Received POST request to /api/languages/add");
+  console.log(req.body);
+
+  const language = new Language({
+    name: req.body.name,
+    snippet: {
+      title: req.body.snippet[0].title,
+      code: req.body.snippet[0].code,
+    },
+  });
+  const result = await language.save();
+  console.log("Saved new language to database:", result);
+  return res.json(result);
+});
+
 app.post("/api/languages/:id/add-snippet", async (req, res) => {
   const { id } = req.params;
   const title = req.body.title;
