@@ -40,7 +40,7 @@ function Snippets({ id, snippets }) {
   };
 
   return (
-    <div className="snippets">
+    <div >
       <div className="container">
         <div>
           {snippets.map((snippet) => (

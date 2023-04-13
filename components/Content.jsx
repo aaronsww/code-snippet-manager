@@ -1,9 +1,9 @@
 import { useState } from "react";
 import axios from "axios";
+import "../src/App.css";
 
-function Content({mainId, id, code }) {
-
-    console.log(mainId, "and", id)
+function Content({ mainId, id, code }) {
+  console.log(mainId, "and", id);
   const [content, setContent] = useState(code);
 
   const handleUpdate = async (mainId, id, newCode) => {
@@ -21,8 +21,9 @@ function Content({mainId, id, code }) {
   };
 
   return (
-    <div>
-      <input
+    <div className="content">
+      <div>{code}</div>
+      <textarea
         type="text"
         value={content}
         onChange={(e) => setContent(e.target.value)}

@@ -29,7 +29,7 @@ function Navigation() {
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  }, [languages]);
 
   const handleClick = (language) => {
     setCurrentLanguage(language);
@@ -39,15 +39,15 @@ function Navigation() {
   console.log(currentLanguage);
 
   return (
-    <div className="container nav">
-      <div>
+    <div className="container">
+      <div className="nav">
         {languages.map((language) => (
           <h2 key={language._id} onClick={() => handleClick(language)}>
             {language.name}
           </h2>
         ))}
       </div>
-      <div>
+      <div className="snippets">
         {check && (
           <Snippets
             id={currentLanguage._id}
