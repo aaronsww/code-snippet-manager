@@ -72,7 +72,7 @@ function Snippets({ id, snippets }) {
           code={currentSnippet.content}
         />
       </div>
-    </div>
+    </div>  
   );
 }
 
