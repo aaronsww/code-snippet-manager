@@ -19,6 +19,15 @@ function Snippets({ id, snippets }) {
     setCurrentSnippet({ name, content, id });
   };
 
+  const handleDelete = async (snippetId) => {
+      try {
+       await axios.delete(`http://localhost:5000/api/languages/${id}/snippets/${snippetId}`)
+        console.log(response);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
   const handleAdd = async (title, code) => {
     if (newSnippet.name) {
       console.log("this is id", id);
@@ -43,16 +52,17 @@ function Snippets({ id, snippets }) {
     <div >
       <div className="container">
         <div>
-          {snippets.map((snippet) => (
-            <div
-              key={snippet._id}
-              onClick={() =>
-                handleClick(snippet.title, snippet.code, snippet._id)
-              }
-            >
-              {snippet.title}
-            </div>
-          ))}
+            {snippets.map((snippet) => (
+              <div
+                key={snippet._id}
+                onClick={() =>
+                  handleClick(snippet.title, snippet.code, snippet._id)
+                }
+              >
+                {snippet.title}
+                 <button onClick={()=>handleDelete( snippet._id)}>Delete</button>
+              </div>
+            ))}
           <input
             type="text"
             value={newSnippet.name}
