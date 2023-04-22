@@ -91,4 +91,19 @@ app.patch(
   }
 );
 
+app.delete("/api/languages/:id/snippets/:snippetId", async (req, res) => {
+  try {
+    const language = await Language.findById(req.params.id);
+    if (!language) {
+      return res.status(404).json({ message: 'Language not found' });
+    }
+    language.snippet.pull(req.params.snippetId);
+    await language.save();
+    res.json({ message: 'Snippet deleted successfully' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
 app.listen(5000, () => console.log("Listening on port 5000"));
