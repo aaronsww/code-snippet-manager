@@ -1,10 +1,14 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import "../src/App.css";
 
 function Content({ mainId, id, code }) {
   console.log(mainId, "and", id);
-  const [content, setContent] = useState(code);
+  const [content, setContent] = useState();
+
+  useEffect(() => {
+    setContent(code);
+  }, [code]);
 
   const handleUpdate = async (mainId, id, newCode) => {
     try {

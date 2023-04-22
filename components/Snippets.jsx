@@ -5,9 +5,9 @@ import Content from "./Content";
 
 function Snippets({ id, snippets }) {
   const [currentSnippet, setCurrentSnippet] = useState({
-    name: "",
-    content: "",
-    id: "",
+    name: snippets[0].title,
+    content: snippets[0].code,
+    id: snippets[0].id,
   });
   const [newSnippet, setNewSnippet] = useState({
     name: "",
