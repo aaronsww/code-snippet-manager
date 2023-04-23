@@ -26,7 +26,6 @@ function Content({ mainId, id, code }) {
 
   return (
     <div className="content">
-      <div >{code}</div>
       <textarea
         type="text"
         value={content}

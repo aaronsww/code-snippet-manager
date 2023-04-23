@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
 import "../src/App.css";
+import "../src/tailwind.css"
 import axios from "axios";
 import Snippets from "./Snippets";
+
 
 function Navigation() {
   const [languages, setLanguages] = useState([
@@ -41,10 +43,11 @@ function Navigation() {
   return (
     <div className="container">
       <div className="nav">
+        <p className="text-2xl">LANGUAGES</p>
         {languages.map((language) => (
-          <h2 key={language._id} onClick={() => handleClick(language)}>
+          <p className="bg-slate-300 border-4 border-slate-500" key={language._id} onClick={() => handleClick(language)}>
             {language.name}
-          </h2>
+          </p>
         ))}
       </div>
       <div className="snippets">

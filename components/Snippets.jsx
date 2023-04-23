@@ -51,15 +51,16 @@ function Snippets({ id, snippets }) {
   return (
     <div >
       <div className="container">
-        <div>
+        <div className="fileCol">
             {snippets.map((snippet) => (
-              <div
+              <div 
+              className="file"
                 key={snippet._id}
                 onClick={() =>
                   handleClick(snippet.title, snippet.code, snippet._id)
                 }
               >
-                {snippet.title}
+                <div>{snippet.title}</div>
                  <button onClick={()=>handleDelete( snippet._id)}>Delete</button>
               </div>
             ))}
