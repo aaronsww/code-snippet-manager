@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import "../src/App.css";
-import "../src/tailwind.css"
+import "/src/App.css";
+import "/src/tailwind.css"
 import axios from "axios";
 import Snippets from "./Snippets";
 

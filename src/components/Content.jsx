@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import "../src/App.css";
+import "/src/App.css";
 
 function Content({ mainId, id, code }) {
   console.log(mainId, "and", id);
