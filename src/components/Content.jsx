@@ -2,6 +2,11 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import "/src/App.css";
 
+import CodeMirror from "@uiw/react-codemirror";
+import "codemirror/keymap/sublime";
+import "codemirror/theme/monokai.css";
+import "codemirror/mode/javascript/javascript";
+
 function Content({ mainId, id, code }) {
   console.log(mainId, "and", id);
   const [content, setContent] = useState();
@@ -11,6 +16,8 @@ function Content({ mainId, id, code }) {
   }, [code]);
 
   const handleUpdate = async (mainId, id, newCode) => {
+
+    console.log(newCode);
     try {
       const response = await axios.patch(
         `http://localhost:5000/api/languages/${mainId}/snippets/${id}/update-snippet`,
@@ -26,10 +33,21 @@ function Content({ mainId, id, code }) {
 
   return (
     <div className="content">
-      <textarea
+      {/* <textarea
         type="text"
         value={content}
         onChange={(e) => setContent(e.target.value)}
+      />
+      <button onClick={() => handleUpdate(mainId, id, content)}>Send</button> */}
+
+      <CodeMirror
+        value={content}
+        onBeforeChange={(editor, data, value) => setContent(value)}
+        options={{
+          theme: "monokai",
+          keyMap: "sublime",
+          mode: "javascript",
+        }}
       />
       <button onClick={() => handleUpdate(mainId, id, content)}>Send</button>
     </div>
