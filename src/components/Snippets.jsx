@@ -4,6 +4,10 @@ import axios from "axios";
 import Content from "./Content";
 
 function Snippets({ id, snippets }) {
+  const [activeSnippetId, setActiveSnippetId] = useState(
+    "64442e5329d4302f89f273e7"
+  );
+
   const [currentSnippet, setCurrentSnippet] = useState({
     name: snippets[0].title,
     content: snippets[0].code,
@@ -13,20 +17,24 @@ function Snippets({ id, snippets }) {
     name: "",
     content: "",
   });
+
   console.log(snippets.length, "my snippets:", snippets, "and", id);
 
   const handleClick = (name, content, id) => {
     setCurrentSnippet({ name, content, id });
+    setActiveSnippetId(id);
   };
 
   const handleDelete = async (snippetId) => {
-      try {
-       await axios.delete(`http://localhost:5000/api/languages/${id}/snippets/${snippetId}`)
-        console.log(response);
-      } catch (error) {
-        console.error(error);
-      }
+    try {
+      await axios.delete(
+        `http://localhost:5000/api/languages/${id}/snippets/${snippetId}`
+      );
+      console.log(response);
+    } catch (error) {
+      console.error(error);
     }
+  };
 
   const handleAdd = async (title, code) => {
     if (newSnippet.name) {
@@ -49,21 +57,30 @@ function Snippets({ id, snippets }) {
   };
 
   return (
-    <div >
+    <div>
       <div className="container">
         <div className="fileCol">
-            {snippets.map((snippet) => (
-              <div 
-              className="file"
-                key={snippet._id}
-                onClick={() =>
-                  handleClick(snippet.title, snippet.code, snippet._id)
-                }
+          {snippets.map((snippet) => (
+            <div
+              key={snippet._id}
+              className={`group h-5 file hover:text-red-500 hover:cursor-pointer ${
+                activeSnippetId === snippet._id
+                  ? "text-red-500 cursor-pointer"
+                  : ""
+              }`}
+              onClick={() =>
+                handleClick(snippet.title, snippet.code, snippet._id)
+              }
+            >
+              <div className="text-sm">{snippet.title}</div>
+              <button
+                className="hidden group-hover:block"
+                onClick={() => handleDelete(snippet._id)}
               >
-                <div>{snippet.title}</div>
-                 <button onClick={()=>handleDelete( snippet._id)}>Delete</button>
-              </div>
-            ))}
+                Delete
+              </button>
+            </div>
+          ))}
           <input
             type="text"
             value={newSnippet.name}
@@ -83,7 +100,7 @@ function Snippets({ id, snippets }) {
           code={currentSnippet.content}
         />
       </div>
-    </div>  
+    </div>
   );
 }
 
