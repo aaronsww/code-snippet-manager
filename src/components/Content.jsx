@@ -3,9 +3,8 @@ import axios from "axios";
 import "/src/App.css";
 
 import CodeMirror from "@uiw/react-codemirror";
-import "codemirror/keymap/sublime";
-import "codemirror/theme/monokai.css";
-import "codemirror/mode/javascript/javascript";
+import 'codemirror/keymap/sublime';
+import { tokyoNight } from "@uiw/codemirror-theme-tokyo-night";
 
 function Content({ mainId, id, code }) {
   console.log(mainId, "and", id);
@@ -16,7 +15,6 @@ function Content({ mainId, id, code }) {
   }, [code]);
 
   const handleUpdate = async (mainId, id, newCode) => {
-
     console.log(newCode);
     try {
       const response = await axios.patch(
@@ -33,23 +31,23 @@ function Content({ mainId, id, code }) {
 
   return (
     <div className="content">
-      {/* <textarea
+      <textarea
         type="text"
         value={content}
         onChange={(e) => setContent(e.target.value)}
       />
-      <button onClick={() => handleUpdate(mainId, id, content)}>Send</button> */}
-
-      <CodeMirror
-        value={content}
-        onBeforeChange={(editor, data, value) => setContent(value)}
-        options={{
-          theme: "monokai",
-          keyMap: "sublime",
-          mode: "javascript",
-        }}
-      />
       <button onClick={() => handleUpdate(mainId, id, content)}>Send</button>
+
+      {/* <CodeMirror
+        value={content}
+         onChange={(e) => setContent(e.target.value)}
+        options={{
+          theme: "tokyoNight",
+          keyMap: "sublime",
+          mode: "jsx",
+        }}
+      /> */}
+      {/* <button onClick={() => handleUpdate(mainId, id, content)}>Send</button> */}
     </div>
   );
 }
