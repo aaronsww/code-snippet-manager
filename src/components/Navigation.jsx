@@ -43,10 +43,10 @@ function Navigation() {
   return (
     <div className="container">
       <div className="nav">
-        <p className="text-2xl">LANGUAGES</p>
+        <p className="text-lg font-bold tracking-wide">LANGUAGES</p>
         {languages.map((language) => (
           <p className="bg-slate-300 border-4 border-slate-500" key={language._id} onClick={() => handleClick(language)}>
-            {language.name}
+            #{language.name}
           </p>
         ))}
       </div>

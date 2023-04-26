@@ -1,5 +1,6 @@
 body{
     margin: 0;
+    font-family: 'Inter', sans-serif;
 }
 
 .container{
@@ -30,7 +31,6 @@ body{
     margin-bottom: 5%;
 }
 .content{
-    
     width: 100%;
     height: 100%;
     border: 2px solid green;
@@ -40,7 +40,4 @@ body{
     height: 90%;
 }
 
-textarea{
-    height: 80vh;
-    width: 90%;
-}
+ 
