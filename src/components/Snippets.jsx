@@ -8,6 +8,8 @@ function Snippets({ id, snippets }) {
     "64442e5329d4302f89f273e7"
   );
 
+  const [showInput, setShowInput] = useState();
+
   const [currentSnippet, setCurrentSnippet] = useState({
     name: snippets[0].title,
     content: snippets[0].code,
@@ -81,7 +83,7 @@ function Snippets({ id, snippets }) {
               </button>
             </div>
           ))}
-          <input
+          {/* <input
             type="text"
             value={newSnippet.name}
             onChange={(e) =>
@@ -91,8 +93,35 @@ function Snippets({ id, snippets }) {
           <button
             onClick={() => handleAdd(newSnippet.name, newSnippet.content)}
           >
-            + New File
+            + Create new file
+          </button> */}
+          <button
+            className="w-40 focus:outline-none"
+            onClick={() => setShowInput(!showInput)}
+          >
+            + Create new file
           </button>
+          {showInput && (
+            <div className="flex items-center mt-1 space-x-2">
+              <input
+                type="text"
+                value={newSnippet.name}
+                onChange={(e) =>
+                  setNewSnippet({ ...newSnippet, name: e.target.value })
+                }
+                className="border border-gray-400 rounded-md w-28"
+              />
+              <button
+                className="rounded focus:outline-none"
+                onClick={() => {
+                  handleAdd(newSnippet.name, newSnippet.content);
+                  setShowInput(false);
+                }}
+              >
+                Add
+              </button>
+            </div>
+          )}
         </div>
         <Content
           mainId={id}
