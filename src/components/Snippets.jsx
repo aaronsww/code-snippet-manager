@@ -83,26 +83,14 @@ function Snippets({ id, snippets }) {
               </button>
             </div>
           ))}
-          {/* <input
-            type="text"
-            value={newSnippet.name}
-            onChange={(e) =>
-              setNewSnippet({ ...newSnippet, name: e.target.value })
-            }
-          />
           <button
-            onClick={() => handleAdd(newSnippet.name, newSnippet.content)}
-          >
-            + Create new file
-          </button> */}
-          <button
-            className="w-40 focus:outline-none"
+            className="w-32 focus:outline-none"
             onClick={() => setShowInput(!showInput)}
           >
-            + Create new file
+            + Add new file
           </button>
           {showInput && (
-            <div className="flex items-center mt-1 space-x-2">
+            <div className="relative flex items-center mt-1 space-x-1">
               <input
                 type="text"
                 value={newSnippet.name}
@@ -112,13 +100,13 @@ function Snippets({ id, snippets }) {
                 className="border border-gray-400 rounded-md w-28"
               />
               <button
-                className="rounded focus:outline-none"
+                className="absolute top-0 right-0 h-full rounded focus:outline-none flex items-center justify-center"
                 onClick={() => {
                   handleAdd(newSnippet.name, newSnippet.content);
                   setShowInput(false);
                 }}
               >
-                Add
+                ✔
               </button>
             </div>
           )}
