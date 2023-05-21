@@ -20,7 +20,7 @@ function Navigation() {
     name: "",
     snippet: [],
   });
-
+ 
   useEffect(() => {
     axios
       .get("http://localhost:5000/api/languages")
