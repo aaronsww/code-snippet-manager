@@ -4,17 +4,16 @@ import axios from "axios";
 import Content from "./Content";
 
 function Snippets({ id, snippets }) {
-  const [activeSnippetId, setActiveSnippetId] = useState(
-    "64442e5329d4302f89f273e7"
-  );
 
   const [showInput, setShowInput] = useState();
 
-  const [currentSnippet, setCurrentSnippet] = useState({
+   const [currentSnippet, setCurrentSnippet] = useState({
     name: snippets[0].title,
     content: snippets[0].code,
-    id: snippets[0].id,
+    // id: snippets[0].id,
+    id: "64442e5329d4302f89f273e7",
   });
+
   const [newSnippet, setNewSnippet] = useState({
     name: "",
     content: "",
@@ -24,7 +23,6 @@ function Snippets({ id, snippets }) {
 
   const handleClick = (name, content, id) => {
     setCurrentSnippet({ name, content, id });
-    setActiveSnippetId(id);
   };
 
   const handleDelete = async (snippetId) => {
@@ -66,7 +64,7 @@ function Snippets({ id, snippets }) {
             <div
               key={snippet._id}
               className={`group h-5 file hover:text-red-500 hover:cursor-pointer ${
-                activeSnippetId === snippet._id
+                currentSnippet.id === snippet._id
                   ? "text-red-500 cursor-pointer"
                   : ""
               }`}

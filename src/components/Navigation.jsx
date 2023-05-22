@@ -13,7 +13,8 @@ function Navigation() {
   ]);
 
   const [check, setCheck] = useState();
-  const [activeLanguageId, setActiveLanguageId] = useState(null);
+
+  // const [activeLanguageId, setActiveLanguageId] = useState(null);
 
   const [currentLanguage, setCurrentLanguage] = useState({
     _id: "",
@@ -34,7 +35,7 @@ function Navigation() {
 
   const handleClick = (language) => {
     setCurrentLanguage(language);
-    setActiveLanguageId(language._id);
+    // setActiveLanguageId(language._id);
     setCheck(true);
   };
 
@@ -48,7 +49,7 @@ function Navigation() {
           <div
             key={language._id}
             className={`p-3 pl-16 transition-colors duration-300 ease-in-out hover:bg-gray-100 hover:text-blue-500 ${
-              activeLanguageId === language._id ? "text-blue-500 bg-gray-200" : ""
+              currentLanguage._id === language._id ? "text-blue-500 bg-gray-200" : ""
             }`}
             onClick={() => handleClick(language)}
           >
