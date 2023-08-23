@@ -14,34 +14,34 @@ function Content({ mainId, id, code }) {
     setContent(code);
   }, [code]);
 
-  useEffect(() => {
-    if (editorRef.current && !editor) {
-      const newEditor = monaco.editor.create(editorRef.current, {
-        value: code,
-        language: "javascript", 
-        theme: "vs-dark", 
-        automaticLayout: true,
-      });
+  // useEffect(() => {
+  //   if (editorRef.current && !editor) {
+  //     const newEditor = monaco.editor.create(editorRef.current, {
+  //       value: code,
+  //       language: "javascript",
+  //       theme: "vs-dark",
+  //       automaticLayout: true,
+  //     });
 
-      newEditor.onDidChangeModelContent(() => {
-        // Handle editor content change if needed
-      });
+  //     newEditor.onDidChangeModelContent(() => {
+  //       // Handle editor content change if needed
+  //     });
 
-      setEditor(newEditor);
-    }
-  }, [code, editor]);
+  //     setEditor(newEditor);
+  //   }
+  // }, [code, editor]);
 
-  const updateEditorContent = (newCode) => {
-    if (editor) {
-      editor.setValue(newCode);
-    }
-  };
+  // const updateEditorContent = (newCode) => {
+  //   if (editor) {
+  //     editor.setValue(newCode);
+  //   }
+  // };
 
-  useEffect(() => {
-    if (editor) {
-      editor.setValue(code);
-    }
-  }, [code, editor]);
+  // useEffect(() => {
+  //   if (editor) {  
+  //     editor.setValue(code);
+  //   }
+  // }, [code, editor]);
 
   const handleUpdate = async (mainId, id, newCode) => {
     console.log(newCode);
@@ -60,13 +60,19 @@ function Content({ mainId, id, code }) {
 
   return (
     <div className="content">
-      <div ref={editorRef} style={{ height: "400px" }}></div>
-      <button onClick={() => handleUpdate(mainId, id, editor.getValue())}>
+      {/* <div ref={editorRef} style={{ height: "400px" }}></div> */}
+      <textarea
+        type="text"
+        value={content}
+        onChange={(e) => setContent(e.target.value)}
+      />
+      <button onClick={() => handleUpdate(mainId, id, content)}>Send</button>
+      {/* <button onClick={() => handleUpdate(mainId, id, editor.getValue())}>
         Send
       </button>
       <button onClick={() => updateEditorContent("New code")}>
         Update Editor Content
-      </button>
+      </button> */}
     </div>
   );
 }
