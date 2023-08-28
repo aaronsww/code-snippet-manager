@@ -48,8 +48,8 @@ function Navigation() {
         {languages.map((language) => (
           <div
             key={language._id}
-            className={`p-3 pl-16 transition-colors duration-300 ease-in-out hover:bg-gray-100 hover:text-blue-500 ${
-              currentLanguage._id === language._id ? "text-blue-500 bg-gray-200" : ""
+            className={`p-3 pl-16 transition-colors duration-300 ease-in-out hover:bg-zinc-800 hover:text-zinc-400 ${
+              currentLanguage._id === language._id ? "text-zinc-100 bg-zinc-700" : ""
             }`}
             onClick={() => handleClick(language)}
           >

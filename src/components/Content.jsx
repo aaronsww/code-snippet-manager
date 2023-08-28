@@ -38,7 +38,7 @@ function Content({ mainId, id, code }) {
   // };
 
   // useEffect(() => {
-  //   if (editor) {  
+  //   if (editor) {
   //     editor.setValue(code);
   //   }
   // }, [code, editor]);
@@ -52,6 +52,7 @@ function Content({ mainId, id, code }) {
           code: newCode,
         }
       );
+      location.reload();
       console.log(response.data);
     } catch (error) {
       console.error(error);
@@ -66,7 +67,7 @@ function Content({ mainId, id, code }) {
         value={content}
         onChange={(e) => setContent(e.target.value)}
       />
-      <button onClick={() => handleUpdate(mainId, id, content)}>Send</button>
+      <button className="hover:cursor-pointer px-4 py-2" onClick={() => handleUpdate(mainId, id, content)}>Add</button>
       {/* <button onClick={() => handleUpdate(mainId, id, editor.getValue())}>
         Send
       </button>
